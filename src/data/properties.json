@@ -1,0 +1,20 @@
+[{"Id":1,
+  "Name": "Birla House",
+  "Type":"House",
+  "Price":12000
+},
+{"Id":2,
+"Name": "Birla House2",
+"Type":"House2",
+"Price":11000
+},
+{"Id":3,
+"Name": "Birla House3",
+"Type":"House3",
+"Price":14000
+},
+{"Id":4,
+"Name": "Birla House4",
+"Type":"House4",
+"Price":15000
+}]
