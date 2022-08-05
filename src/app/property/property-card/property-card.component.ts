@@ -8,7 +8,7 @@ import { IProperty } from "../IProperty.inteface";
  styleUrls: ['property-card.component.css']
 })
 export class PropertyCardComponent {
-@Input() property!:IProperty
+@Input() property!:any
 
 
 }
