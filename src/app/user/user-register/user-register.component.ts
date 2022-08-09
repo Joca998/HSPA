@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { User } from 'src/app/model/user';
+import { UserService } from 'src/app/services/user-service.service';
+import { AlertifyService } from 'src/app/services/alertify.service';
 
 @Component({
   selector: 'app-user-register',
@@ -8,8 +11,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class UserRegisterComponent implements OnInit {
   registrationForm!: FormGroup;
-  user: any={};
-  constructor(private fb: FormBuilder) { }
+  user!: User;
+  constructor(private fb: FormBuilder, private userService: UserService, private alertify:AlertifyService) { }
 
   ngOnInit(): void {
     // this.registrationForm=new FormGroup({
@@ -37,24 +40,24 @@ export class UserRegisterComponent implements OnInit {
 
   }
 
-  getUserName(){
+  get userName(){
     return this.registrationForm.get('userName') as FormControl;
   }
 
 
-  getEmail(){
+  get email(){
     return this.registrationForm.get('userEmail') as FormControl;
   }
 
-  getPassword(){
+  get password(){
     return this.registrationForm.get('userPassword') as FormControl;
   }
 
-  getConfirmPassword(){
+  get confirmPassword(){
     return this.registrationForm.get('userConfirmPassword') as FormControl;
   }
 
-  getMobile(){
+  get mobile(){
     return this.registrationForm.get('userMobile') as FormControl;
   }
 
@@ -62,19 +65,21 @@ export class UserRegisterComponent implements OnInit {
 
   onSubmit(){
     console.log(this.registrationForm.value);
-    this.user= Object.assign(this.user,this.registrationForm.value);
-    this.addUser(this.user);
+    //this.user= Object.assign(this.user,this.registrationForm.value);
+    this.userService.addUser(this.userData());
+    this.registrationForm.reset();
+    this.alertify.success('Congrats, you are successfully registred');
+
   }
 
-  addUser(user:any){
-    let users=[];
-    if (localStorage.getItem('Users')){
-      users=JSON.parse(localStorage.getItem('Users')!);
-      users=[user]
-    } else{
-      users=[user];
+  userData(): User{
+    return this.user={
+      userName: this.userName.value,
+      email: this.email.value,
+      password: this.password.value,
+      mobile: this.mobile.value
+
     }
-    localStorage.setItem('Users',JSON.stringify(user));
-    console.log(users);
   }
+
 }
